@@ -957,10 +957,13 @@
                     styleStr = `style="flex-grow: ${growFactor}; flex-basis: ${flexBasis}px;"`;
                 }
 
+
+                // imgSrc is the full path/URL you already have
+                const fileName = imgSrc.split('/').pop().split('?')[0].split('#')[0];
                 galleryItemsHTML += `
-                <div class="card gallery-card" id="card-${index}" data-img="${imgSrc}" ${styleStr}>
+                <div class="card gallery-card" id="card-${index}" data-img="${fileName}" ${styleStr}>
                     <div class="card-inner">
-                        <img src="${imgSrc}" alt="Gallery Image">
+                        <img src="${fileName}" alt="Gallery Image">
                         <div class="card-content">
                             <h3>${item.dataset.title}</h3>
                             <div class="desc">${item.dataset.desc}</div>
@@ -1034,9 +1037,10 @@
             cards.forEach(card => {
                 card.addEventListener('click', () => {
                     const imgSrc = card.getAttribute('data-img');
+                    const imgName = imgSrc.split('/').pop().split('?')[0].split('#')[0];
                     const title = card.querySelector('h3').innerText;
                     const desc = card.querySelector('.desc').innerHTML;
-                    document.getElementById('lb-img').src = imgSrc;
+                    document.getElementById('lb-img').src = imgName;
                     document.getElementById('lb-title').innerText = title;
                     document.getElementById('lb-desc').innerHTML = desc;
                     lightbox.classList.add('active');
